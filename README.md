@@ -3,12 +3,16 @@
 Yang Zou, Jongheon Jeong, Latha Pemula, Dongqing Zhang, Onkar Dabeer.
 
 ## Table of Contents
+* [Introduction](#introduction)
 * [Data description](#data-description)
 * [Data statistics](#data-statistics)
 * [Data Download](#data-download)
 * [Utility code](#utility-code)
 * [Citation](#citation)
 * [License](#license)
+
+## Introduction
+This repository contains the resources for our ECCV-2022 paper "SPot-the-Difference Self-Supervised Pre-training for Anomaly Detection and Segmentation". Currently we release the Visual Anomaly (VisA) dataset. 
 
 ## Data Description
 ![](figures/VisA_samples.png)
