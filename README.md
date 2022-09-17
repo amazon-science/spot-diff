@@ -33,7 +33,7 @@ The VisA dataset contains 12 subsets corresponding to 12 different objects as sh
 | Cashew | 500 | 100 | 9 | Single instance |
 | Chewing gum | 503 | 100 | 6 | Single instance |
 | Fryum | 500 | 100 | 8 | Single instance |
-| Pipe fryum | 500 | 100 | 6 | Single instance |
+| Pipe fryum | 500 | 100 | 9 | Single instance |
 
 ## Data download
 
