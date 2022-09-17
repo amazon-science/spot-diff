@@ -68,7 +68,7 @@ Specifically, the reorganized data for 1-class setup follows the data tree of [M
 
 Note that the multi-class ground-truth segmentation masks in the original dataset are reindexed to binary masks where 0 indicates normality and 255 indicates anomaly. 
 
-In addition, the 2-class setups can be prepared in a similar way by changing the arguments of prepare_data.py. Moreover, the id2class map functions for multi-class masks can be found in [id2class.json](https://github.com/amazon-research/spot-diff/blob/main/utils/id2class.py) 
+In addition, the 2-class setups can be prepared in a similar way by changing the arguments of prepare_data.py. Moreover, the id2class map functions for multi-class masks can be found in [id2class.py](https://github.com/amazon-research/spot-diff/blob/main/utils/id2class.py) 
 
 ## Metrics computation
 To compute classification and segmentation metrics, please refer to [metrics.py](https://github.com/amazon-research/spot-diff/blob/main/utils/metrics.py). Note that we take the normal samples into account when computing the localization metrics. This is different from some of the other works disregarding the normal samples in localization.
