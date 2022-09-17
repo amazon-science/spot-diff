@@ -5,7 +5,6 @@ Yang Zou, Jongheon Jeong, Latha Pemula, Dongqing Zhang, Onkar Dabeer.
 ## Table of Contents
 * [Introduction](#introduction)
 * [Data description](#data-description)
-* [Data statistics](#data-statistics)
 * [Data download](#data-download)
 * [Data preparation](#data-preparation)
 * [Metric computation](#metric-computation)
@@ -17,9 +16,9 @@ This repository contains the resources for our ECCV-2022 paper ["SPot-the-Differ
 
 ## Data description
 ![](figures/VisA_samples.png)
+
 The VisA dataset contains 12 subsets corresponding to 12 different objects as shown in the above figure. There are 10,821 images with 9,621 normal and 1,200 anomalous samples. Four subsets are different types of printed circuit boards (PCB) with relatively complex structures containing transistors, capacitors, chips, etc. For the case of multiple instances in a view, we collect four subsets: Capsules, Candles, Macaroni1 and Macaroni2. Instances in Capsules and Macaroni2 largely differ in locations and poses. Moreover, we collect four subsets including Cashew, Chewing gum, Fryum and Pipe fryum, where objects are roughly aligned. The anomalous images contain various flaws, including surface defects such as scratches, dents, color spots or crack, and structural defects like misplacement or missing parts. 
 
-## Data statistics
 | Object | # normal samples | # anomaly samples  | # anomaly classes | object type | 
 |---|--------------|----------------|----------|-----------|
 | PCB1 | 1,004 | 100 | 4 | Complex structure |
@@ -39,8 +38,25 @@ The VisA dataset contains 12 subsets corresponding to 12 different objects as sh
 
 We host the VisA dataset in AWS S3 and you can download it by this [URL](https://amazon-visual-anomaly.s3.us-west-2.amazonaws.com/VisA.tar). 
 
+The data tree of the downloaded data is as follows.
+```shell
+VisA
+|-- candle
+|-----|--- Data
+|-----|-----|----- Images
+|-----|-----|--------|------ Anomaly 
+|-----|-----|--------|------ Normal 
+|-----|-----|----- Masks
+|-----|-----|--------|------ Anomaly 
+|-----|--- image_annot.csv
+|-- capsules
+|-----|----- ...
+```
+
+image_annot.csv gives image-level label and pixel-level annotation mask for each image. The id2class map functions for multi-class masks can be found in [./utils/id2class.py](https://github.com/amazon-research/spot-diff/blob/main/utils/id2class.py) Here the masks for normal images are not stored to save space.
+
 ## Data preparation
-In the downloaded "VisA" folder, for each object, all the anomalous and normal samples are stored in "Anomaly" and "Normal" subfolders. To prepare the 1-class, 2-class-highshot, 2-class-fewshot setups described in the [original paper](https://arxiv.org/pdf/2207.14315.pdf), we use the [prepare_data.py](https://github.com/amazon-research/spot-diff/blob/main/utils/prepare_data.py) for reorganization, following the data splitting files in "./split_csv/". We give a sample command line for 1-class setup preparation as follows.
+To prepare the 1-class, 2-class-highshot, 2-class-fewshot setups described in the [original paper](https://arxiv.org/pdf/2207.14315.pdf), we use the [./utils/prepare_data.py](https://github.com/amazon-research/spot-diff/blob/main/utils/prepare_data.py) to reorganize data following the data splitting files in "./split_csv/". We give a sample command line for 1-class setup preparation as follows.
 ~~~~
 python ./utils/prepare_data.py --split-type 1cls --data-folder ./VisA --save-folder ./VisA_pytorch --split-file ./split_csv/1cls.csv
 ~~~~
@@ -49,15 +65,15 @@ The data tree of the reorganized 1-class setup is as follows.
 ```shell
 VisA_pytorch
 |-- 1cls
-|-----|----- candle
+|-----|--- candle
 |-----|-----|----- ground_truth
 |-----|-----|----- test
-|-----|-----|--------|------ good
-|-----|-----|--------|------ bad
+|-----|-----|-------|------- good 
+|-----|-----|-------|------- bad 
 |-----|-----|----- train
-|-----|-----|--------|------ good
-|-----|----- capsules
-|-----|----- ...
+|-----|-----|-------|------- good
+|-----|--- capsules
+|-----|--- ...
 ```
 
 Specifically, the reorganized data for 1-class setup follows the data tree of [MVTec-AD](https://www.mvtec.com/company/research/datasets/mvtec-ad/). For each object, the data has three folders:
@@ -68,10 +84,10 @@ Specifically, the reorganized data for 1-class setup follows the data tree of [M
 
 Note that the multi-class ground-truth segmentation masks in the original dataset are reindexed to binary masks where 0 indicates normality and 255 indicates anomaly. 
 
-In addition, the 2-class setups can be prepared in a similar way by changing the arguments of prepare_data.py. Moreover, the id2class map functions for multi-class masks can be found in [id2class.py](https://github.com/amazon-research/spot-diff/blob/main/utils/id2class.py) 
+In addition, the 2-class setups can be prepared in a similar way by changing the arguments of prepare_data.py.  
 
 ## Metrics computation
-To compute classification and segmentation metrics, please refer to [metrics.py](https://github.com/amazon-research/spot-diff/blob/main/utils/metrics.py). Note that we take the normal samples into account when computing the localization metrics. This is different from some of the other works disregarding the normal samples in localization.
+To compute classification and segmentation metrics, please refer to [./utils/metrics.py](https://github.com/amazon-research/spot-diff/blob/main/utils/metrics.py). Note that we take the normal samples into account when computing the localization metrics. This is different from some of the other works disregarding the normal samples in localization.
 
 ## Citation
 Please cite the following paper if this dataset helps your project:
