@@ -16,7 +16,7 @@ parser = argparse.ArgumentParser(description='Data preparation')
 parser.add_argument('--split-type',default='1cls', type=str,help='1cls, 2cls_highshot, 2cls_fewshot')
 parser.add_argument('--data-folder',default='./VisA/', type=str,help='the path to downloaded VisA dataset')
 parser.add_argument('--save-folder',default='./VisA_pytorch/', type=str,help='the target path to save the reorganized VisA dataset facilitating data loading in pytorch')
-parser.add_argument('--split-file',default='./VisA/split_csv/1cls.csv', type=str,help='the csv file to split downloaded VisA dataset')
+parser.add_argument('--split-file',default='./split_csv/1cls.csv', type=str,help='the csv file to split downloaded VisA dataset')
 
 config = parser.parse_args()
 
