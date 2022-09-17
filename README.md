@@ -40,7 +40,7 @@ The VisA dataset contains 12 subsets corresponding to 12 different objects as sh
 We host the VisA dataset in AWS S3 and you can download it by this [URL](https://amazon-visual-anomaly.s3.us-west-2.amazonaws.com/VisA.tar). 
 
 ## Data preparation
-In the downloaded "VisA" folder, for each object, all the anomalous and normal samples are stored in "Anomaly" and "Normal" subfolders. To prepare the 1-class, 2-class-highshot, 2-class-fewshot setups described in the [original paper](https://arxiv.org/pdf/2207.14315.pdf), we use the [prepare_data.py](https://github.com/amazon-research/spot-diff/blob/main/prepare_data.py) for reorganization, following the data splitting files in "./VisA/split_csv/". We give a sample command line for 1-class setup preparation as follows.
+In the downloaded "VisA" folder, for each object, all the anomalous and normal samples are stored in "Anomaly" and "Normal" subfolders. To prepare the 1-class, 2-class-highshot, 2-class-fewshot setups described in the [original paper](https://arxiv.org/pdf/2207.14315.pdf), we use the [prepare_data.py](https://github.com/amazon-research/spot-diff/blob/main/prepare_data.py) for reorganization, following the data splitting files in "./VisA/split_csv/". The multi-class ground-truth segmentation masks are reindexed to binary masks where 0 indicates normal and 255 indicates anomaly. We give a sample command line for 1-class setup preparation as follows.
 ~~~~
 python prepare_data.py --split-type 1cls --data-folder ./VisA --save-folder ./VisA_pytorch --split-file ./VisA/split_csv/1cls.csv
 ~~~~
@@ -61,6 +61,8 @@ VisA_pytorch
 ```
 
 2-class setups can be prepared in a similar way by changing the arguments of prepare_data.py. 
+
+In addition, the id2class map functions for multi-class masks can be found in id2class.json 
 
 ## Metrics computation
 To compute classification and segmentation metrics, please refer to [metrics.py](https://github.com/amazon-research/spot-diff/blob/main/metrics.py). Note that we take the normal samples into account when computing the localization metrics. This is different from some of the other works disregarding the normal samples in localization.
