@@ -36,7 +36,7 @@ The VisA dataset contains 12 subsets corresponding to 12 different objects as sh
 
 ## Data download
 
-We host the VisA dataset in AWS S3 and you can download it by this [URL](https://amazon-visual-anomaly.s3.us-west-2.amazonaws.com/VisA.tar). 
+We host the VisA dataset in AWS S3 and you can download it by this [URL](https://amazon-visual-anomaly.s3.us-west-2.amazonaws.com/VisA_20220922.tar). 
 
 The data tree of the downloaded data is as follows.
 ```shell
@@ -48,7 +48,7 @@ VisA
 |-----|-----|--------|------ Normal 
 |-----|-----|----- Masks
 |-----|-----|--------|------ Anomaly 
-|-----|--- image_annot.csv
+|-----|--- image_anno.csv
 |-- capsules
 |-----|----- ...
 ```

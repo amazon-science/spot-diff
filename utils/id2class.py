@@ -1,7 +1,7 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
 
-{
+id2class_map = {
     "candle": {"0": "BACKGROUND", "1": "Chunk Of Wax Missing", "2": "Damaged Corner of Packaging",
                "3": "weird candle wick", "4": "Different Colour Spot", "5": "Extra Wax in Candle",
                "6": "Foreign Particals on Candle", "7": "Wax Melded out of the candle", "8": "Other"},
